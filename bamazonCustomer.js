@@ -33,7 +33,7 @@ const displayProducts = () =>
                         console.log(
                             `Item ID: ${elements.item_id} \n` +
                             `Product Name: ${elements.product_name} \n` +
-                            `Product Price: ${elements.price} \n` +
+                            `Product Price: $${elements.price} \n` +
                             `----------------------------------------`
                         )
                         });
@@ -60,16 +60,32 @@ const userInput = () =>
             function(answer)
                 {
                     connection.query(
-                        "SELECT p.price, p.stock_quantity FROM products p WHERE ?",
+                        "SELECT p.item_id, p.product_name, p.price, p.stock_quantity FROM products p WHERE ?",
                             {
                                 item_id: answer.item
                             },
                         function(err, results)
                             {
                                 if(err) throw err;
+                                // console.log(results[0]);
                                 if(results[0].stock_quantity >= answer.quantity)
                                     {
-                                        connection.query()
+                                        connection.query(
+                                            `UPDATE products SET ? WHERE ?`,
+                                                [
+                                                    {
+                                                        stock_quantity: results[0].stock_quantity - answer.quantity
+                                                    },
+                                                    {
+                                                        item_id: answer.item
+                                                    }
+                                                ]
+                                        )
+                                        console.log(`Item ordered: ${results[0].product_name}`);
+                                        console.log(`Quantity ordered: ${answer.quantity}`);
+                                        console.log(`Total price: $${results[0].price * answer.quantity}`)
+                                    }else{
+                                        console.log(`Sorry dude, we don't have enough. We currently have ${results[0].stock_quantity}.`)
                                     }
                                 connection.end();
                             }

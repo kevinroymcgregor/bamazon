@@ -20,4 +20,7 @@ VALUES ("Star Wars Blu-Ray", "Movies", 20.00, 15),
     ("Princess Leia Action Figure", "Toys", 15.00, 11),
     ("Thrawn", "Books", 17.00, 15),
     ("Thrawn: Alliances", "Books", 17.00, 15),
-    ("Thrawn: Treason", "Books", 12.00, 10);
+    ("Thrawn: Treason", "Books", 12.00, 10),
+    ("YT-1300", "Vehicle", 25000.00, 1),
+	("T-65 X-Wing", "Vehicle", 50000.00, 1);
+    
